@@ -75,3 +75,15 @@ User Retention / Engagement: Higher adoption rates in Tier-2 and Tier-3 markets 
 
 Customer Satisfaction (CSAT/NPS): Elevating the user experience by eliminating the cognitive load of having to "speak perfect English" or "perfect Hindi" to a machine.
 
+Accuracy & Metrics Q&As
+Q: Why can't you use standard Word Error Rate (WER) to measure accuracy here?
+
+A: Standard WER fails because mixed languages cause script mismatches (e.g., spelling a Hindi word in English script like "karna" vs "करना"). Standard tools falsely flag this as a 100% error.
+
+Q: What specific metrics are we tracking to prove our solution works?
+
+Switch-Point Accuracy: How well the model recognizes words right at the exact moment the language flips.
+
+Intent Success Rate: Whether the system successfully triggers the right action (e.g., booking a cab) despite the mixed phrasing.
+
+Semantic Accuracy: Using an LLM evaluator to check if the transcript means the exact same thing as the audio, ignoring spelling variations.
