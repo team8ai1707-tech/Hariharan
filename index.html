@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedha Resort | Luxury Nature Gateway</title>
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app-container">
+        
+        <!-- HEADER / NAVIGATION -->
+        <header id="header">
+            <div class="nav-container">
+                <a href="#home" class="logo">
+                    <span class="logo-icon">⚜</span>
+                    <span class="brand-text">Vedha Resort</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><span class="nav-link active" data-target="home">Home</span></li>
+                        <li><span class="nav-link" data-target="rooms">Rooms</span></li>
+                        <li><span class="nav-link" data-target="amenities">Pool & Spa</span></li>
+                        <li><span class="nav-link" data-target="dining">Dining</span></li>
+                        <li><span class="nav-link" data-target="reception">Events & Desk</span></li>
+                        <li><span class="nav-link" data-target="kids-garden">Kids & Parks</span></li>
+                        <li><span class="nav-link" data-target="parking">Parking</span></li>
+                        <li><span class="nav-link" data-target="service">Service Desk</span></li>
+                        <li><span class="nav-link" data-target="map">Map</span></li>
+                        <li><span class="nav-link" data-target="reviews">Reviews</span></li>
+                    </ul>
+                </nav>
+                <button class="nav-book-btn" onclick="app.showBookingModal()">Book Room</button>
+            </div>
+        </header>
+
+        <!-- MAIN SPA DISPLAY -->
+        <main>
+            
+            <!-- SECTION 1: HOME (LANDING) -->
+            <section id="home" class="section-view active">
+                <div class="hero-container">
+                    <div class="hero-text">
+                        <span class="section-subtitle">Exquisite Tropical Escape</span>
+                        <h1>Where Luxury Meets <span>Untamed Nature</span></h1>
+                        <p>Welcome to Vedha Resort, a sanctuary designed for pure relaxation. Indulge in private villas, grand swimming pools, customized fine dining, and world-class hospitality tailored just for you.</p>
+                        <div class="hero-cta">
+                            <button class="btn-primary" onclick="app.navigateTo('rooms')">
+                                Explore Rooms
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </button>
+                            <button class="btn-secondary" onclick="app.navigateTo('amenities')">Amenities</button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80" alt="Vedha Resort Landscape" id="hero-img">
+                        <div class="hero-badge">
+                            <span class="hero-badge-icon">★</span>
+                            <div>
+                                <h4 style="font-size: 1.1rem; font-weight: 600;">5-Star Luxury</h4>
+                                <p style="font-size: 0.75rem; color: var(--text-secondary); margin: 0;">Awarded Best Eco Resort 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Module Navigation Cards -->
+                <div class="home-modules">
+                    <div class="section-header">
+                        <span class="section-subtitle">Experience Modules</span>
+                        <h2 class="section-title">Designed For Ultimate Comfort</h2>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="glass-card module-card" onclick="app.navigateTo('rooms')">
+                            <div class="module-icon">🛋</div>
+                            <h3>Luxury Rooms</h3>
+                            <p>Select from Deluxe, Premium Suites, or the Presidential Villa. View real-time availability and cleaning logs.</p>
+                            <span class="module-card-link">Reserve Suite 
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </span>
+                        </div>
+                        <div class="glass-card module-card" onclick="app.navigateTo('dining')">
+                            <div class="module-icon">🍽</div>
+                            <h3>Exquisite Dining</h3>
+                            <p>Savor North Indian, South Indian, and authentic Chinese culinary creations prepared by Michelin-trained chefs.</p>
+                            <span class="module-card-link">View Food Menu
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </span>
+                        </div>
+                        <div class="glass-card module-card" onclick="app.navigateTo('amenities')">
+                            <div class="module-icon">🏊</div>
+                            <h3>Grand Swimming Pool</h3>
+                            <p>Featuring an infinity-edge layout for adults and a custom safety-designed splash park for children.</p>
+                            <span class="module-card-link">Pool Schedules
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </span>
+                        </div>
+                        <div class="glass-card module-card" onclick="app.navigateTo('parking')">
+                            <div class="module-icon">🚗</div>
+                            <h3>Smart Parking</h3>
+                            <p>Real-time parking spot tracker. Check slot occupancy and reserve your dedicated valet spot instantly.</p>
+                            <span class="module-card-link">Check Slots
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </span>
+                        </div>
+                        <div class="glass-card module-card" onclick="app.navigateTo('service')">
+                            <div class="module-icon">🔔</div>
+                            <h3>24/7 Service Desk</h3>
+                            <p>Need housekeeping, luggage help, or dry cleaning? Log requests here and monitor progress live.</p>
+                            <span class="module-card-link">Request Service
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </span>
+                        </div>
+                        <div class="glass-card module-card" onclick="app.navigateTo('reception')">
+                            <div class="module-icon">🏛</div>
+                            <h3>Events & Reception</h3>
+                            <p>Book the grand banquet hall or coordinate directly with our reception check-in ticketing model.</p>
+                            <span class="module-card-link">Book Hall
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: ROOM BOOKING -->
+            <section id="rooms" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Accommodation Suite</span>
+                    <h2 class="section-title">Rooms & Live Availability</h2>
+                    <p class="section-desc">Observe live status updates. Standard cleaning protocol takes exactly 20 minutes between check-out and next booking.</p>
+                </div>
+
+                <div class="booking-control-bar">
+                    <div class="filter-group">
+                        <button class="filter-btn active" onclick="app.filterRooms('all', this)">All Rooms</button>
+                        <button class="filter-btn" onclick="app.filterRooms('available', this)">Available</button>
+                        <button class="filter-btn" onclick="app.filterRooms('booked', this)">Booked</button>
+                        <button class="filter-btn" onclick="app.filterRooms('cleaning', this)">Cleaning</button>
+                    </div>
+                    <div>
+                        <span style="font-size: 0.9rem; color: var(--text-secondary);">Simulated Time Engine Active</span>
+                    </div>
+                </div>
+
+                <div class="room-grid" id="rooms-list-grid">
+                    <!-- Loaded dynamically via app.js -->
+                </div>
+            </section>
+
+            <!-- SECTION 3: SWIMMING POOL & AMENITIES -->
+            <section id="amenities" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Wellness & Recreation</span>
+                    <h2 class="section-title">Grand Pools & Amenities</h2>
+                </div>
+
+                <div class="pool-split">
+                    <!-- Adult Pool -->
+                    <div class="glass-card pool-card">
+                        <div class="pool-header">
+                            <h3>Adult Infinity Pool</h3>
+                            <span class="status-pill available">Active</span>
+                        </div>
+                        <div class="pool-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Depth</span>
+                                <span class="stat-val">4.5 - 6.0 ft</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Water Temp</span>
+                                <span class="stat-val">26°C</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Open Hours</span>
+                                <span class="stat-val">06:00 - 22:00</span>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">A striking infinity edge looking out into the natural valley. Swim lanes, sunset lounge chairs, and a swim-up drink station offering mocktails and snacks.</p>
+                        <div class="pool-rules">
+                            <h4>Pool Guidelines</h4>
+                            <ul>
+                                <li>Shower prior to entry is mandatory.</li>
+                                <li>Adult presence requested for youngsters.</li>
+                                <li>No glass container items allowed in deck area.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Children Pool -->
+                    <div class="glass-card pool-card">
+                        <div class="pool-header">
+                            <h3>Kids Water Play Park</h3>
+                            <span class="status-pill available">Active</span>
+                        </div>
+                        <div class="pool-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Depth</span>
+                                <span class="stat-val">1.0 - 2.0 ft</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Water Temp</span>
+                                <span class="stat-val">28°C (Heated)</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Open Hours</span>
+                                <span class="stat-val">08:00 - 19:00</span>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Heated shallow splash pools equipped with spiral waterslides, rain trees, and continuous lifeguard supervision, ensuring a safe haven for younger guests.</p>
+                        <div class="pool-rules">
+                            <h4>Safety Protocols</h4>
+                            <ul>
+                                <li>Life jackets are free at reception desk.</li>
+                                <li>Constant lifeguard oversight during open hours.</li>
+                                <li>Water checked hourly for quality and balance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Showcase other resort amenities -->
+                <div class="amenities-showcase">
+                    <div class="amenity-item">
+                        <div class="amenity-icon">📶</div>
+                        <h4>Ultra WiFi</h4>
+                        <p>High-speed gigabit wifi throughout resort parameters</p>
+                    </div>
+                    <div class="amenity-item">
+                        <div class="amenity-icon">🧘</div>
+                        <h4>Yoga Shala</h4>
+                        <p>Morning sessions looking out to botanical garden walks</p>
+                    </div>
+                    <div class="amenity-item">
+                        <div class="amenity-icon">💆</div>
+                        <h4>Veda Spa</h4>
+                        <p>Ayurvedic massages and mineral salt baths</p>
+                    </div>
+                    <div class="amenity-item">
+                        <div class="amenity-icon">🚲</div>
+                        <h4>Free Bicycles</h4>
+                        <p>Rent mountain bikes to tour local paths</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: DINING & MENU -->
+            <section id="dining" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Gastronomy Journey</span>
+                    <h2 class="section-title">Fine Culinary Dining</h2>
+                </div>
+
+                <div class="dining-layout">
+                    <!-- Food items selector -->
+                    <div class="glass-card">
+                        <div class="menu-tabs">
+                            <span class="menu-tab-btn active" id="menu-north" onclick="app.changeMenuCategory('north-indian')">North Indian</span>
+                            <span class="menu-tab-btn" id="menu-south" onclick="app.changeMenuCategory('south-indian')">South Indian</span>
+                            <span class="menu-tab-btn" id="menu-chinese" onclick="app.changeMenuCategory('chinese')">Chinese Dishes</span>
+                        </div>
+                        <div class="menu-items-grid" id="food-menu-container">
+                            <!-- Injected dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Cart Sidebar -->
+                    <div class="glass-card cart-card">
+                        <div class="cart-title">
+                            <span>Your Order</span>
+                            <span class="cart-icon">🛒</span>
+                        </div>
+                        <div id="cart-items-wrapper">
+                            <!-- Items appear here -->
+                        </div>
+                        <div class="cart-summary">
+                            <div class="cart-total-row">
+                                <span>Grand Total:</span>
+                                <span id="cart-total-cost">₹0</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="app.checkoutFoodOrder()">Place Order</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: RECEPTION & PARTY HALL -->
+            <section id="reception" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Banquet & Front Desk</span>
+                    <h2 class="section-title">Reception & Grand Party Hall</h2>
+                </div>
+
+                <div class="reception-split">
+                    <!-- Reception Module -->
+                    <div class="glass-card">
+                        <h3>Virtual Reception Desk</h3>
+                        <p>Manage your arrivals, ask details, or coordinate transport options. Generate an entry ticket to get instant assistance at check-in.</p>
+                        
+                        <div class="ticket-generator">
+                            <h4>🎟 Request Front Desk Ticket</h4>
+                            <div class="form-group">
+                                <label for="ticket-name">Guest Full Name</label>
+                                <input type="text" id="ticket-name" class="form-control" placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                                <label for="ticket-reason">Reason for Desk Visit</label>
+                                <select id="ticket-reason" class="form-control">
+                                    <option value="check-in">Express Check-in</option>
+                                    <option value="luggage">Luggage Claim / Storage</option>
+                                    <option value="valet">Valet Retrival</option>
+                                    <option value="customs">Concierge & Travel Planning</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary" onclick="app.generateReceptionTicket()">Generate Ticket</button>
+
+                            <div class="ticket-output" id="reception-ticket-box">
+                                <div class="ticket-detail"><span class="ticket-lbl">Ticket ID:</span><span class="ticket-val" id="ticket-id-out">#VDH-1049</span></div>
+                                <div class="ticket-detail"><span class="ticket-lbl">Guest:</span><span class="ticket-val" id="ticket-guest-out">John Doe</span></div>
+                                <div class="ticket-detail"><span class="ticket-lbl">Service:</span><span class="ticket-val" id="ticket-service-out">Valet Retrieval</span></div>
+                                <div class="ticket-detail"><span class="ticket-lbl">Queue Status:</span><span class="ticket-val" style="color: var(--status-cleaning);">2 Guests Ahead</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Party Hall Module -->
+                    <div class="glass-card">
+                        <h3>Grand Veda Banquet Hall</h3>
+                        <p>Our elegant 800-capacity indoor venue caters for weddings, corporate galas, birthdays, and theme nights.</p>
+                        
+                        <div class="form-group">
+                            <label for="hall-date">Desired Event Date</label>
+                            <input type="date" id="hall-date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="hall-guests">Estimated Guests</label>
+                            <input type="number" id="hall-guests" class="form-control" value="150" min="50" max="800" oninput="app.updateHallViz(this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="hall-layout">Seating Arrangement</label>
+                            <select id="hall-layout" class="form-control">
+                                <option value="banquet">Round Banquet Tables (Max 600)</option>
+                                <option value="theater">Theater Seating (Max 800)</option>
+                                <option value="classroom">Classroom style (Max 400)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="party-capacity-viz">
+                            <div class="viz-label">
+                                <span>Hall Safety Load Limit</span>
+                                <span id="hall-guests-pct">18% Full</span>
+                            </div>
+                            <div class="viz-bar">
+                                <div class="viz-fill" id="hall-viz-fill" style="width: 18.75%;"></div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" style="margin-top: 1.5rem;" onclick="app.submitHallInquiry()">Submit Hall Inquiry</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: KIDS ZONE & GARDEN -->
+            <section id="kids-garden" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Nature & Play</span>
+                    <h2 class="section-title">Kids Zone & Botanical Gardens</h2>
+                </div>
+
+                <div class="garden-split">
+                    <!-- Kids Zone -->
+                    <div class="glass-card">
+                        <h3>Kids adventure Playground</h3>
+                        <p>A secure indoor and outdoor playground offering supervised activities for children aged 2-12 years. Features standard padded obstacle courses, swings, safety trampolines, and custom arts/craft blocks.</p>
+                        <div class="kids-activities">
+                            <div class="activity-strip">
+                                <div class="activity-num">01</div>
+                                <div class="activity-txt">
+                                    <h4>Indoor Soft Play Area</h4>
+                                    <p>Padded climbing structures, tunnels, and plastic ball pits (Ages 2-6)</p>
+                                </div>
+                            </div>
+                            <div class="activity-strip">
+                                <div class="activity-num">02</div>
+                                <div class="activity-txt">
+                                    <h4>Climbing Wall & Trampolines</h4>
+                                    <p>Safe climbing wall harnesses and soft spring trampolines (Ages 6-12)</p>
+                                </div>
+                            </div>
+                            <div class="activity-strip">
+                                <div class="activity-num">03</div>
+                                <div class="activity-txt">
+                                    <h4>Art & Craft Workshops</h4>
+                                    <p>Painting, pottery modeling, and paper craft schedules twice daily</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botanical Garden -->
+                    <div class="glass-card">
+                        <h3>Vedha Botanical Sanctuary</h3>
+                        <p>Take a quiet walk through 12 acres of curated exotic flora, natural water creeks, sensory paths, and local organic fruit orchards.</p>
+                        <div class="garden-features">
+                            <div class="activity-strip">
+                                <div class="activity-num">✿</div>
+                                <div class="activity-txt">
+                                    <h4>Orchid Conservatory</h4>
+                                    <p>Houses over 85 varieties of rare tropical orchid blooms</p>
+                                </div>
+                            </div>
+                            <div class="activity-strip">
+                                <div class="activity-num">☘</div>
+                                <div class="activity-txt">
+                                    <h4>Sensory Herbal Walks</h4>
+                                    <p>Guided walks exploring traditional medicinal plants and healing herbs</p>
+                                </div>
+                            </div>
+                            <div class="activity-strip">
+                                <div class="activity-num">💧</div>
+                                <div class="activity-txt">
+                                    <h4>Zen Reflection Creek</h4>
+                                    <p>Sit by the slow-flowing creek paths designed for reading and yoga</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: CAR PARKING AVAILABILITY -->
+            <section id="parking" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Smart Logistics</span>
+                    <h2 class="section-title">Valet & Car Parking Slots</h2>
+                    <p class="section-desc">Review and reserve available parking slots. Green slots represent vacant spots. Click on any vacant spot to reserve.</p>
+                </div>
+
+                <div class="parking-container">
+                    <!-- Parking Slots Display -->
+                    <div class="glass-card">
+                        <div class="parking-legend">
+                            <div class="legend-item">
+                                <div class="legend-color free"></div>
+                                <span>Free Spot</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color occupied"></div>
+                                <span>Occupied</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color selected"></div>
+                                <span>Selected Spot</span>
+                            </div>
+                        </div>
+
+                        <div class="parking-grid" id="parking-grid-box">
+                            <!-- Injected dynamically in app.js -->
+                        </div>
+                    </div>
+
+                    <!-- Slot Selector Sidebar -->
+                    <div class="glass-card" style="height: fit-content;">
+                        <h3>Reserve Parking Space</h3>
+                        <p>Secure your spot before arrival. Selected spaces will be marked with your guest profile tag.</p>
+                        
+                        <div class="parking-details-card">
+                            <div class="parking-detail-row">
+                                <span class="parking-detail-lbl">Selected Space:</span>
+                                <span class="parking-detail-val" id="selected-parking-slot">None Selected</span>
+                            </div>
+                            <div class="parking-detail-row">
+                                <span class="parking-detail-lbl">Valet Fee:</span>
+                                <span class="parking-detail-val">Complimentary</span>
+                            </div>
+                            <div class="parking-detail-row">
+                                <span class="parking-detail-lbl">Security Level:</span>
+                                <span class="parking-detail-val">24/7 CCTV Monitored</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 1.5rem;">
+                            <label for="parking-car-no">Car Plate Number</label>
+                            <input type="text" id="parking-car-no" class="form-control" placeholder="e.g. KA-03-MG-1234">
+                        </div>
+
+                        <button class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;" onclick="app.reserveSelectedParking()">Confirm Reservation</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 8: SERVICE CENTER -->
+            <section id="service" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Guest Dispatcher</span>
+                    <h2 class="section-title">Resort Service Center</h2>
+                </div>
+
+                <div class="service-split">
+                    <!-- Request Creation -->
+                    <div class="glass-card">
+                        <h3>New Service Request</h3>
+                        <p>Submit immediate requests. Room numbers are verified against active booking files.</p>
+                        
+                        <div class="form-group">
+                            <label for="service-room-id">Select Booked Room</label>
+                            <select id="service-room-id" class="form-control">
+                                <!-- Injected dynamically in app.js -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-category">Request Category</label>
+                            <select id="service-category" class="form-control">
+                                <option value="Housekeeping">Housekeeping (Towels, Pillows)</option>
+                                <option value="Luggage Assist">Luggage Assistance (Check-out/in)</option>
+                                <option value="In-Room Dining">In-Room Dining (Delivery Plates)</option>
+                                <option value="Valet Call">Valet Vehicle Retrieval</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-desc">Additional Instruction / Note</label>
+                            <textarea id="service-desc" class="form-control" rows="3" placeholder="Provide details..."></textarea>
+                        </div>
+
+                        <button class="btn-primary" onclick="app.submitServiceRequest()">Dispatch Request</button>
+                    </div>
+
+                    <!-- Live logs -->
+                    <div class="glass-card">
+                        <div class="request-feed-header">Live Request Tracking Feed</div>
+                        <div class="request-log" id="service-requests-feed">
+                            <!-- Feed elements injected in app.js -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 9: MAPS & DIRECTIONS -->
+            <section id="map" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Find Us</span>
+                    <h2 class="section-title">Location & Maps Direction</h2>
+                </div>
+
+                <div class="maps-container">
+                    <!-- Leaflet map element -->
+                    <div class="map-wrapper">
+                        <div id="map-element"></div>
+                    </div>
+
+                    <!-- Details and Coordinates -->
+                    <div class="glass-card map-info-card">
+                        <h3>Vedha Resort Sanctuary</h3>
+                        <p>Nestled in the pristine, green forest hills of Coorg. Far enough to disconnect, but fully accessible via national highway routes.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">📍</div>
+                                <div class="contact-text">
+                                    <h5>Resort Address</h5>
+                                    <p>Survey No. 42/1A, Madikeri Hills Road, Coorg, Karnataka - 571201</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">📞</div>
+                                <div class="contact-text">
+                                    <h5>Reservations & Desk</h5>
+                                    <p>+91 (8272) 224400 / info@vedharesort.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">🚗</div>
+                                <div class="contact-text">
+                                    <h5>Travel Access</h5>
+                                    <p>120 km from Mysore Airport, 250 km from Bengaluru International Airport</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" onclick="window.open('https://maps.google.com/?q=Madikeri+Coorg', '_blank')">Open in Google Maps</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 10: REVIEWS & RATINGS -->
+            <section id="reviews" class="section-view">
+                <div class="section-header">
+                    <span class="section-subtitle">Guest Diaries</span>
+                    <h2 class="section-title">Reviews & Ratings</h2>
+                </div>
+
+                <div class="reviews-container">
+                    <!-- Left: Score board and Review Form -->
+                    <div class="glass-card">
+                        <div class="ratings-overview">
+                            <div class="rating-score">4.9</div>
+                            <div class="rating-stars">★★★★★</div>
+                            <div class="rating-count">Based on 342 verified guest reviews</div>
+                        </div>
+
+                        <div class="rating-breakdown" style="margin-bottom: 2.5rem;">
+                            <div class="breakdown-row">
+                                <span class="breakdown-stars">5 Star</span>
+                                <div class="breakdown-bar-wrapper"><div class="breakdown-bar-fill" style="width: 90%;"></div></div>
+                                <span class="breakdown-pct">90%</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-stars">4 Star</span>
+                                <div class="breakdown-bar-wrapper"><div class="breakdown-bar-fill" style="width: 8%;"></div></div>
+                                <span class="breakdown-pct">8%</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-stars">3 Star</span>
+                                <div class="breakdown-bar-wrapper"><div class="breakdown-bar-fill" style="width: 2%;"></div></div>
+                                <span class="breakdown-pct">2%</span>
+                            </div>
+                        </div>
+
+                        <!-- Write Review Form -->
+                        <div class="review-form-title">Write a Review</div>
+                        <div class="form-group">
+                            <label>Overall Rating</label>
+                            <div class="star-rating-selector" id="form-star-select">
+                                <span data-val="1">★</span>
+                                <span data-val="2">★</span>
+                                <span data-val="3">★</span>
+                                <span data-val="4">★</span>
+                                <span data-val="5" class="selected">★</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="review-author">Your Name</label>
+                            <input type="text" id="review-author" class="form-control" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="review-comment">Review Description</label>
+                            <textarea id="review-comment" class="form-control" rows="3" placeholder="Share your experience..."></textarea>
+                        </div>
+                        <button class="btn-primary" onclick="app.submitReview()">Submit Review</button>
+                    </div>
+
+                    <!-- Right: Reviews Feed -->
+                    <div class="glass-card reviews-feed-section">
+                        <h3>Recent Guest Reviews</h3>
+                        <div class="reviews-list-container" id="reviews-feed-box">
+                            <!-- Injected dynamically in app.js -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1.2rem;">Vedha Resort</h4>
+                    <p>Escape to a tranquil tropical sanctuary. Indulge in premium nature suites, exquisite dining selections, infinity pools, and round-the-clock service desks designed for absolute comfort.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Resort Modules</h4>
+                    <ul>
+                        <li><a href="#rooms">Villas & Suites</a></li>
+                        <li><a href="#amenities">Swimming Pools</a></li>
+                        <li><a href="#dining">Fine Dining Restaurants</a></li>
+                        <li><a href="#parking">Valet Parking Slots</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Direct Contact</h4>
+                    <ul>
+                        <li><a href="#map">View Maps Direction</a></li>
+                        <li><a href="#reception">Virtual Reception Desk</a></li>
+                        <li><a href="#service">Housekeeping Orders</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Operating Standard</h4>
+                    <p>Checkout Cleaning: 20-min cycle</p>
+                    <p>Check-in: 14:00 | Check-out: 11:00</p>
+                    <p>Security: 24/7 CCTV & Guard Presence</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Vedha Resort Ltd. All rights reserved.</p>
+                <p>Designed with Luxury Aesthetics</p>
+            </div>
+        </footer>
+
+        <!-- BOOKING MODAL -->
+        <div class="modal-overlay" id="booking-modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Book a Luxury Suite</h3>
+                    <span class="close-modal-btn" onclick="app.closeBookingModal()">&times;</span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-guest-name">Guest Full Name</label>
+                    <input type="text" id="modal-guest-name" class="form-control" placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="modal-room-select">Select Suite / Villa Type</label>
+                    <select id="modal-room-select" class="form-control">
+                        <!-- Loaded dynamically via js based on available rooms -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-duration">Duration of Stay</label>
+                    <select id="modal-duration" class="form-control">
+                        <option value="1">1 Night</option>
+                        <option value="2">2 Nights</option>
+                        <option value="3">3 Nights</option>
+                        <option value="5">5 Nights</option>
+                        <option value="7">1 Week</option>
+                    </select>
+                </div>
+                <button class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;" onclick="app.confirmBooking()">Confirm Reservation</button>
+            </div>
+        </div>
+
+        <!-- INTERACTIVE VOICE ASSISTANT WIDGET -->
+        <div id="voice-assistant-widget">
+            <button class="voice-orb" id="voice-orb-btn" onclick="voiceAssistant.toggleListening()">
+                <span class="orb-icon">🎙</span>
+                <!-- Soundwave animations for recording state -->
+                <div class="soundwaves">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+            </button>
+            
+            <div class="voice-status-tooltip">
+                <div class="tooltip-header">
+                    <span>VEDHA ASSISTANT</span>
+                    <span style="font-size: 0.7rem; font-weight: 400; opacity: 0.8;" id="assistant-badge">ACTIVE</span>
+                </div>
+                <div class="tooltip-status" id="voice-status-text">Click mic icon and speak a command...</div>
+                <div class="tooltip-help">
+                    Try saying: "Show food menu", "Book a villa", "Go to pool", "Check slots", or "Explain cleanup"
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Leaflet JS for Map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Application Logic -->
+    <script src="app.js"></script>
+    <script src="voice.js"></script>
+</body>
+</html>
