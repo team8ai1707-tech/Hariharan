@@ -1,0 +1,77 @@
+Formal/Professional: Polished, respectful, and authoritative; used in business or official settings.
+Friendly/Casual: Warm, approachable, and relaxed; common in social interactions.
+Assertive/Confident: Clear, firm, and persuasive; conveys authority and decisiveness.
+Empathetic/Supportive: Gentle, caring, and understanding; builds trust and rapport.
+Humorous/Playful: Light-hearted and entertaining; engages and relaxes the audience.
+Inspirational/Motivational: Energetic and uplifting; encourages action or positive thinking.
+Elements like pitch (high or low), volume (loud or soft), and speed (fast or slow)
+
+
+Q1: How do you achieve "real-time" language detection without adding massive latency to the voice response?
+Answer:
+We use a hybrid/cascaded pipeline rather than relying on a single, heavy end-to-end model for everything.
+Simultaneously, we feed the streaming token outputs into a bilingual Automatic Speech Recognition (ASR) engine (like Whisper or a fine-tuned Conformer architecture) that supports a combined vocabulary (e.g., Hindi + English).
+
+By running LID in parallel with ASR frame decoding, we keep latency under 300ms, which is imperceptible to the user.
+
+Q2:  Code-switching often happens mid-sentence (e.g., "Wait, let me check train ticket availability, mummy ko call karna hai"). How does the system handle this transition without breaking?
+Answer:
+Instead of forcing the system to "switch" between two distinct mono-lingual ASR models (which causes lag and context loss), we use a joint-vocabulary ASR model. The model treats "Hinglish" as its own distinct dialect.
+We also implement a Token-Level Language Classifier at the decoder output. It tags each recognized word with its language origin (e.g., ["Wait": EN, "mummy": EN, "ko": HI, "call": EN, "karna": HI, "hai": HI]). This tag map is then passed to our downstream Natural Language Understanding (NLU) engine.
+
+Q3: How do you handle downstream NLU (intent parsing) when the recognized text is a mix of two languages?
+Answer:
+Standard LLMs or intent parsers trained only on English or pure Hindi fail here. We solve this by:
+
+Translation/Normalization Layer: Translating the mixed-language transcript into a unified semantic representation (either fully English or fully Hindi) before intent parsing.
+
+Multilingual Embeddings: Using a multilingual model (like mBERT or XLM-RoBERTa) fine-tuned on code-switched datasets. These models map "mummy ko call karo" and "call my mother" to the exact same vector space, triggering the Make_Call intent seamlessly.
+
+Track 2: Data Strategy & Privacy
+Q4: Real-world Hinglish and code-switched data is notoriously scarce. How did you build your dataset?
+Answer:
+We used a three-pronged data strategy:
+
+Open-Source Baselines: We utilized existing bilingual datasets such as MS-COCO Hinglish, IIIT-Hyderabad's code-switching corpora, and common multilingual speech datasets (like Common Voice).
+
+Synthetic Data Generation (SDG): We leveraged LLMs to generate text-based code-switched dialogues (taking monolingual English/Hindi prompts and translating them into natural Hinglish). We then passed these scripts through high-quality Text-to-Speech (TTS) models with diverse accents.
+
+Augmentation: We applied speed perturbation, background noise injection (to simulate real-world usage like driving or walking), and pitch shifting to ensure robustness.
+
+Q5: Since voice data is highly sensitive, how are you addressing data privacy and compliance?
+Answer:
+We adhere strictly to privacy-by-design principles:
+
+No Voice Storage: Voice inputs are processed in-memory as streaming audio frames and immediately discarded post-inference.
+
+On-Device/Edge Possibilities: For future phases, our lightweight LID model can run locally on the client device, triggering server-side ASR only when necessary.
+
+Anonymization: Any synthetic or benchmark datasets used during training are stripped of PII (Personally Identifiable Information).
+
+Track 3: Product & UX Experience
+Q6: What does the "UI displaying detected language cues" look like in practice?
+Answer:
+To build user confidence, the UI features a dynamic "Language Indicator Pill" or subtle glow effect that changes color or icon based on the active language detected (e.g., showing EN for English, HI for Hindi, and a combined EN|HI badge when code-switching is active).
+Additionally, as the user speaks, the real-time transcription displays the recognized words immediately, highlighting detected transitions so the user knows the system is following their train of thought.
+
+UX Example:
+
+User says: "Can you book a cab, mujhe late ho raha hai."
+
+UI displays: [Can you book a cab] (in blue/English) [mujhe late ho raha hai] (in orange/Hindi).
+
+Q7: If the system gets confused mid-sentence, how does it gracefully recover without frustrating the user?
+Answer:
+We implement Fallback Intent Parsing. If the confidence score of the code-switched ASR falls below 70%, the system doesn't just say "I didn't get that." Instead, it uses the last confidently detected language to prompt the user: "I got the first part about booking a cab, where should I book it to?" (or the Hindi equivalent depending on the dominant language of the prompt).
+
+Track 4: Business Value & Impact
+Q8: What are the primary business metrics we are trying to move with this solution?
+Answer:
+Our success is measured by three key pillars:
+
+Task Completion Rate (TCR): Reducing the number of abandoned voice interactions caused by recognition failures (target: +25% improvement).
+
+User Retention / Engagement: Higher adoption rates in Tier-2 and Tier-3 markets where native code-switching is the standard mode of communication.
+
+Customer Satisfaction (CSAT/NPS): Elevating the user experience by eliminating the cognitive load of having to "speak perfect English" or "perfect Hindi" to a machine.
+
