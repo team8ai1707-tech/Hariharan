@@ -1,0 +1,27 @@
+AI Friday Season 2 – Problem Statements 
+Real-Time Language Detection and Seamless Code-Switching Support 
+PROBLEM STATEMENT 
+Voice systems typically do not support multilingual or language-switching users effectively, often resulting in 
+recognition failures when users switch languages mid-conversation. For example, Rahul’s use of Hindi-English mixed 
+speech confuses the system and interrupts interactions. This limitation hampers adoption in multilingual societies and 
+global markets. Current systems lack real-time language detection and smooth code-switching capabilities, causing 
+broken workflows and poor user experience. The business impact includes lost engagement, reduced inclusivity, and 
+market limitations. AI solutions enabling dynamic language identification and code-switching support can unlock 
+natural multilingual interactions. 
+Data Considerations: 
+Code-switching speech datasets with Hindi-English mixtures and other bilingual samples; multilingual speech 
+corpora; language detection training data; volume targeting thousands of mixed-language utterances; preprocessing 
+for language segmentation and annotation; data privacy and linguistic diversity compliance; synthetic code-switching 
+data generation advised. 
+Consider using synthetic or anonymized data where appropriate. Ensure data quality and relevance to the problem 
+context. 
+SOLUTION EXPECTATIONS 
+A voice recognition platform supporting real-time language detection and seamless code-switching; UI displaying 
+detected language cues; backend integration with multilingual assistant APIs; measurable improvements in code
+switching recognition accuracy; user guide explaining multilingual interaction features; technical documentation on 
+language detection algorithms; demo illustrating smooth language transitions during conversations. 
+Accessibility Impact: Benefits multilingual users and users who naturally code-switch during conversation. Expected 
+outcome: users can communicate naturally without being forced into a single language or rigid interaction pattern. 
+Feel free to explore creative solutions that align with the problem context and objectives. 
+TCS Internal        
+16 July 2026 
