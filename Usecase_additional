@@ -1,0 +1,36 @@
+AI Friday Season 2 – Problem Statements 
+Personalized Speech Recognition for Users with Speech Impairments 
+PROBLEM STATEMENT 
+Users with speech impairments such as stammering, dysarthria, aphasia, long pauses, incomplete commands, or 
+vocal fatigue often face repeated failures when voice systems expect fluent, standard speech. For instance, users like 
+Riya attempting critical tasks such as checking bank balances may be misunderstood, timed out, or forced to restart 
+without a clear recovery path. This limits access to essential services and increases user effort, frustration, and 
+dependency on assisted channels. Current systems rely heavily on generic speech models and often lack personalized 
+learning, confirmation, flexible input, and graceful error recovery for non-standard speech patterns. The business 
+impact includes loss of trust, increased support costs, accessibility gaps, and regulatory risk. The challenge is to design 
+a personalized voice interaction experience that helps users with varied speech patterns complete tasks safely and 
+confidently, even when recognition confidence is low or speech is interrupted. 
+Data Considerations: 
+Requires dysarthric and impaired speech datasets capturing diverse non-standard patterns and stammer variations in 
+multiple languages; speaker-specific voice training data to enable personalization; data should include both controlled 
+and real-world noisy samples to ensure robustness; volume should cover hundreds of hours to train adaptive models 
+effectively; data privacy and consent compliance (e.g., GDPR) must be enforced; synthetic data generation using 
+speech augmentation tools can supplement rare impairment types; preprocessing involves noise reduction, 
+segmentation, and normalization to standardize inputs for model training. 
+Consider using synthetic or anonymized data where appropriate. Ensure data quality and relevance to the problem 
+context. 
+SOLUTION EXPECTATIONS 
+A user-friendly application demonstrating personalized voice interaction for users with speech impairments; adaptive 
+learning that improves over repeated interactions; real-time transcription, confirmation, and correction feedback; 
+flexible fallback options such as text, touch, or assisted confirmation; backend integration with APIs for task execution; 
+measurable improvements using task completion rate, first-attempt success, retry count, clarification turns reduced, 
+successful recovery from incomplete speech, and reduction in user effort; documentation mapping the solution to PAS 
+901 principles including error recovery, user control, adaptive interaction, confirmation and clarity, discoverability, 
+flexible input, and cognitive accessibility; demo scenarios covering stammering, long pauses, incomplete commands, 
+low-confidence recognition, vocal fatigue, and noisy environments. 
+Accessibility Impact: Benefits users with speech impairments, temporary voice changes, and fatigue-related speech 
+variation by reducing misrecognition, timeout, and restart barriers. Expected outcome: users can complete sensitive 
+tasks with greater independence, confidence, and dignity. 
+Feel free to explore creative solutions that align with the problem context and objectives. 
+TCS Internal        
+16 July 2026 
